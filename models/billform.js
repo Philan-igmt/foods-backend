@@ -1,44 +1,36 @@
 const mongoose = require("mongoose");
 
 const BillSchema = mongoose.Schema({
-  firstname: {
-    type: String,
-    required: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
-  },
 
   streetaddress: {
     type: String,
     required: true,
   },
 
-  town: {
+  city: {
     type: String,
     required: true,
   },
-  province: {
+  area: {
     type: String,
     required: true,
   },
-  postalcode: {
+  deliveryDate: {
+    type: String,
+    required: true,
+    default:Date.now()
+  },
+  deliveryTime: {
     type: Number,
     required: true,
+    default:Date.now()
   },
-  phone: {
-    type: Number,
+  option: {
+    type: Boolean,
     required: true,
+    default:false,
   },
-  email: {
-    type: String,
-    required: true,
-  },
-  cart: {
-    type: Array,
-    required: true,
-  },
+  
 });
 
 module.exports = mongoose.model("Order", BillSchema);

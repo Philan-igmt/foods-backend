@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const Order = require('../models/order');
 const Platter = require('../models/platter');
+const BillSchema = require('../models/billform');
 
 
 
@@ -164,15 +165,29 @@ router.post("/addPlatters",(req,res)=>{
 })
 
 router.get("/platters",(req,res)=>{
-	Platter.findOne({},(err,data)=>{
-		if (data) {
-			console.log("this are the platter ",data);
-			res.send({"this are the platters":data})
-		} else {
-			console.log(err);
-			res.send({error:err})
-		}
+	Platter.find({}, function (err, platters) {
+        res.send(platters);
+    });
+})
+
+
+router.post("/cart/billing",(req,res)=>{
+	const bill = req.body
+	let newBill = new BillSchema({
+		streetaddress:bill.streetaddress,
+		city:bill.city,
+		area:bill.area,
+		deliveryDate:bill.deliveryDate,
+		deliveryTime:bill.deliveryTime,
+		option:bill.option
 	})
+	newBill.save((err,bill ) => {
+			if (err)
+				console.log(err);
+			else
+				console.log('THIS IS THE BILL', bill);
+				res.send({newBill})
+		});
 })
 module.exports = router;
 
