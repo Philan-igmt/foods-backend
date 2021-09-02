@@ -2,13 +2,16 @@ const express = require('express');
 const ejs = require('ejs');
 const path = require('path');
 const app = express();
+const cors = require("cors")
+app.use(cors())
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
-const MongoDBURI = process.env.MONGO_URI || "mongodb+srv://phila:foodproject123@anything.uf0bp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const MongoDBURI = process.env.MONGO_URI || "mongodb+srv://Wandisile:pGvLK4ZjrTbZR_X@group34.ohktd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
+const PORT =process.env.PORT || 5000
 mongoose.connect(MongoDBURI, {
   useUnifiedTopology: true,
   useNewUrlParser: true
@@ -55,6 +58,6 @@ app.use((err, req, res, next) => {
 });
 
 // listen on port 3000
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Express app listening on port 3000');
+app.listen(PORT, () => {
+  console.log(`Express app listening on port ${PORT}`);
 });

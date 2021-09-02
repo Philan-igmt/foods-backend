@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+const Cart = mongoose.Schema({ item: String });
 const BillSchema = mongoose.Schema({
 
   streetaddress: {
@@ -18,18 +19,23 @@ const BillSchema = mongoose.Schema({
   deliveryDate: {
     type: String,
     required: true,
-    default:Date.now()
   },
   deliveryTime: {
-    type: Number,
+    type: String,
     required: true,
-    default:Date.now()
   },
   option: {
-    type: Boolean,
+    type: String,
     required: true,
-    default:false,
   },
+  cart:{
+    type:[Cart],
+    default: undefined
+  },
+  total:{
+    type:String,
+    required: true,
+  }
   
 });
 

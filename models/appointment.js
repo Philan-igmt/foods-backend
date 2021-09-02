@@ -10,21 +10,24 @@ const AppointmentSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
   cellphoneNumber: {
-    type: Number,
+    type: String,
     required: true,
   },
   option: {
-    type: [String],
+    type: String,
     required: true,
-    default:["google"]
   },
   reason: {
     type: String,
     required: true,
   },
   slot: {
-    type: Date.now(),
+    type: String,
     required: true,
   },
 
@@ -32,4 +35,4 @@ const AppointmentSchema = mongoose.Schema({
   
 });
 
-module.exports = mongoose.model("Order", AppointmentSchema);
+module.exports = mongoose.model("User_Appointment", AppointmentSchema);

@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Order = require('../models/order');
 const Platter = require('../models/platter');
 const BillSchema = require('../models/billform');
+const AppointmentSchema = require('../models/appointment');
 
 
 
@@ -169,6 +170,37 @@ router.get("/platters",(req,res)=>{
         res.send(platters);
     });
 })
+router.get("/cart/billing",(req,res)=>{
+	BillSchema.find({}, function (err, orders) {
+		if(!err){
+			res.send(orders);
+		}else{
+			res.send(err)
+		}
+        
+    });
+})
+router.get("/appointment",(req,res)=>{
+	AppointmentSchema.find({}, function (err, appointments) {
+		if(!err){
+			res.send(appointments);
+		}else{
+			res.send(err)
+		}
+        
+    });
+})
+router.get("/users",(req,res)=>{
+	User.find({}, function (err, users) {
+		if(!err){
+			res.send(users);
+		}else{
+			res.send(err)
+		}
+        
+    });
+})
+
 
 
 router.post("/cart/billing",(req,res)=>{
@@ -179,7 +211,9 @@ router.post("/cart/billing",(req,res)=>{
 		area:bill.area,
 		deliveryDate:bill.deliveryDate,
 		deliveryTime:bill.deliveryTime,
-		option:bill.option
+		option:bill.option,
+		cart:bill.cart,
+		total:bill.total
 	})
 	newBill.save((err,bill ) => {
 			if (err)
@@ -188,6 +222,29 @@ router.post("/cart/billing",(req,res)=>{
 				console.log('THIS IS THE BILL', bill);
 				res.send({newBill})
 		});
+})
+
+
+router.post("/appointment",(req,res)=>{
+	const appointment = req.body;
+	let newAppointment = new AppointmentSchema({
+		name:appointment.name,
+		surname:appointment.surname,
+		email:appointment.email,
+		cellphoneNumber:appointment.cellphoneNumber,
+		option:appointment.option,
+		reason:appointment.reason,
+		slot:appointment.slot
+	})
+	newAppointment.save((err,appointment)=>{
+		if(err){
+			console.log(err);
+			res.send({"error":err})
+		}else{
+			console.log("this is the appointment", appointment);
+			res.send({newAppointment})
+		}
+	})
 })
 module.exports = router;
 
