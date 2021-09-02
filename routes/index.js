@@ -246,6 +246,17 @@ router.post("/appointment",(req,res)=>{
 		}
 	})
 })
+
+// admin delete a user
+router.delete('/users/:userId', (req, res) => {
+	const userIndex = getUserIndex(req.params.userId)
+   
+	if (userIndex === -1) return res.status(404).json({})
+   
+	User.splice(userIndex, 1)
+	res.json(users)
+   })
+
 module.exports = router;
 
 
