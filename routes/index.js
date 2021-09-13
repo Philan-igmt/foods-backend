@@ -11,9 +11,12 @@ const AppointmentSchema = require('../models/appointment');
 router.get('/', (req, res, next) => {
 	return res.render('index.ejs');
 });
+router.get('/', (req, res, next) => {
+	return res.render('index.ejs');
+});
 
 
-router.post('/', (req, res, next) => {
+router.post('/register', (req, res, next) => {
 	let personInfo = req.body;
 
 	if (!personInfo.email || !personInfo.username || !personInfo.password || !personInfo.passwordConf) {
@@ -23,21 +26,13 @@ router.post('/', (req, res, next) => {
 
 			User.findOne({ email: personInfo.email }, (err, data) => {
 				if (!data) {
-					let c;
 					User.findOne({}, (err, data) => {
 
-						if (data) {
-							c = data.unique_id + 1;
-						} else {
-							c = 1;
-						}
-
 						let newPerson = new User({
-							unique_id: c,
 							email: personInfo.email,
 							username: personInfo.username,
 							password: personInfo.password,
-							passwordConf: personInfo.passwordConf
+							passwordConf: personInfo.passwordConf,
 						});
 
 						newPerson.save((err, Person) => {

@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 userSchema = new Schema( {
-	
-	unique_id: {
-		type:String,
-		default: Math.floor(Math.random() * 10)
-	},
 	email: String,
 	username: String,
 	password: String,
@@ -14,8 +9,12 @@ userSchema = new Schema( {
 	createdAt: {
 		type: Date,
 		default: Date.now
+	},
+	role:{
+		type:String,
+		default:"USER"
 	}
 }),
-User = mongoose.model('User', userSchema);
+User = mongoose.model('Users', userSchema);
 
 module.exports = User;
